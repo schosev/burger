@@ -1,0 +1,37 @@
+body {
+    background-color: #ffff99;
+}
+
+#burger-image {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.burger-box {
+    margin: 10px;
+    padding: 3px;
+    line-height: 40px;
+    border: 2px solid rgb(0, 0, 0);
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.eaten-box {
+    display: block;
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid rgb(0, 0, 0);
+    color: #737373;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+}
+
+.submit-container {
+    margin: 20px 0px;
+}
+
+#nb {
+    margin: 10px 0px;
+}

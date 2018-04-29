@@ -1,0 +1,93 @@
+<div class="display-container">
+  <div class="row">
+    <div class="col col-md-2"></div>
+    <div class="col col-md-4">
+  {{#each burgers}}
+    {{#unless devoured}}
+      <p class="burger-box">
+        {{this.id}}. {{this.burger_name}}
+        <button type="button" data-id="{{id}}" data-newburger="{{devoured}}" class="btn btn-primary float-right updateburger">Devour It!</button>
+      </p>
+    {{/unless}}
+  {{/each}}
+  </div>
+
+  <div class="col col-md-4">
+  {{#each burgers}}
+    {{#if devoured}}
+      <p class="eaten-box">
+        {{this.id}}. {{this.burger_name}}
+      </p>
+    {{/if}}
+  {{/each}}
+  </div>
+  <div class="col col-md-2"></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col col-md-3"></div>
+    <div class="col col-md-6">
+      <div class="submit-container">
+          <h2 class="text-center">Enter a Burger you want to Eat</h2>
+          <form id="createburger">
+            <div class="form-group">
+              <input class="form-control" type="text" id="nb" name="new-burger" placeholder="Enter a Burger">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  <div class="col col-md-3"></div>
+</div>
+
+
+<script type="text/javascript">
+
+  $("#createburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newBurger = {
+      newburger: $("#nb").val().trim(),
+      isDevoured: "0"
+    };
+
+    // Send the POST request.
+    console.log("in View - index before ajax call");
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("created new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $(".updateburger").on("click", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var id = $(this).data("id");
+    var newDevoured = $(this).data("newburger");
+
+    var devouredBurger = {
+      devoured: newDevoured
+    };
+
+    // Send the PUT request.
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: devouredBurger
+    }).then(
+      function() {
+        console.log("in index update - updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+</script>
